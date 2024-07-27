@@ -23,9 +23,7 @@
                 id="nombre_estado"
                 value="{{ old('nombre_estado') }}"
             >
-            @error('nombre_estado')
-                {{ $message }}
-            @enderror
+            <x-input-error :messages="$errors->get('nombre_estado')" class="mt-2" />
         </div>
         <div>
             <label for="descripcion_estado">Descripcion del estado</label>
@@ -36,9 +34,7 @@
                 id="descripcion_estado"
                 value="{{ old('nombre_estado') }}"
             >
-            @error('descripcion_estado')
-                {{ $message }}
-            @enderror
+            <x-input-error :messages="$errors->get('descripcion_estado')" class="mt-2" />
         </div>
         <div class="mt-3">
             <button 
