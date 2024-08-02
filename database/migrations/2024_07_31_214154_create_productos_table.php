@@ -20,9 +20,9 @@ return new class extends Migration
             $table->date('vencimiento_producto')->nullable();
             $table->decimal('precio_compra_producto', 10, 2);
             $table->decimal('precio_venta_producto', 10, 2);
-            $table->foreignId('id_marca')->constrained('tbl_marca')->onDelete('cascade');
-            $table->foreignId('id_categoria')->constrained('tbl_categoria')->onDelete('cascade');
-            $table->foreignId('id_estado')->constrained('tbl_estado')->onDelete('cascade');
+            $table->foreignId('id_marca')->references('id')->on('marcas');
+            $table->foreignId('id_categoria')->references('id')->on('categorias');
+            $table->foreignId('id_estado')->references('id')->on('estados');
             $table->timestamps();
         });
     }
