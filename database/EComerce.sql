@@ -65,11 +65,23 @@ CREATE TABLE tbl_usuario (
 
 CREATE TABLE tbl_tipo_documento (
     id_documento INT PRIMARY KEY,
-    tipo_documento VARCHAR(255),
-    descripcion_documento VARCHAR(255),
+    nombre_tipoDocumento VARCHAR(255),
+    --descripcion_documento VARCHAR(255),
     id_estado INT,
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
+
+CREATE TABLE tbl_series (
+    id_serie INT PRIMARY KEY,
+    nombre_serie VARCHAR(255),
+    descripcion_serie VARCHAR(255),
+    id_documento INT,
+    correlativo INT,
+    id_estado INT,
+    FOREIGN KEY (id_documento) REFERENCES tbl_tipo_documento(id_documento),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
 
 CREATE TABLE tbl_marca (
     id_marca INT PRIMARY KEY,
