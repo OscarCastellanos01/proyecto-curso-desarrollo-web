@@ -179,14 +179,14 @@ CREATE TABLE tbl_tipo_venta (
 CREATE TABLE tbl_venta (
     id_venta INT PRIMARY KEY,
     documento_venta VARCHAR(255),
+    total_venta DECIMAL(10, 2),
+    fecha_venta DATE,
+    fecha_entrega DATE,
     id_tipo_documento INT,
     id_medio_pago INT,
-    total_venta DECIMAL(10, 2),
-    id_tipoVenta INT,
-    fecha_venta DATE,
     id_usuario INT,
-    fecha_entrega DATE,
     id_persona INT,
+    id_tipoVenta INT,
     FOREIGN KEY (id_tipo_documento) REFERENCES tbl_tipo_documento(id_documento),
     FOREIGN KEY (id_medio_pago) REFERENCES tbl_metodo_pago(id_metodo_pago),
     FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
@@ -215,13 +215,17 @@ CREATE TABLE tbl_compra (
     fecha_compra DATE,
     monto_total_compra DECIMAL(10, 2),
     descripcion_compra VARCHAR(255),
-    id_metodo_pago INT,
-    id_tipoCompra INT,
-    id_estado INT,
     referencia VARCHAR(255),
+    id_metodo_pago INT,
+    id_estado INT,
+    id_tipoCompra INT,
+    id_usuario INT,
+    id_persona INT,
     FOREIGN KEY (id_metodo_pago) REFERENCES tbl_metodo_pago(id_metodo_pago),
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado),
-    FOREIGN KEY (id_tipoCompra) REFERENCES tbl_tipo_compra(id_tipoCompra)
+    FOREIGN KEY (id_tipoCompra) REFERENCES tbl_tipo_compra(id_tipoCompra),
+    FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
+    FOREIGN KEY (id_persona) REFERENCES tbl_persona(id_persona)
 );
 
 CREATE TABLE tbl_compra_detalle (
