@@ -374,6 +374,7 @@ CREATE TABLE tbl_bodega (
     FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal)
 );
 
+
 CREATE TABLE tbl_bodega_producto (
     id_bodega INT,
     id_producto INT,
@@ -383,6 +384,21 @@ CREATE TABLE tbl_bodega_producto (
     FOREIGN KEY (id_bodega) REFERENCES tbl_bodega(id_bodega),
     FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto)
 );
+
+CREATE TABLE tbl_translado (
+    id_translado INT PRIMARY KEY,
+    fecha_translado DATE,
+    motivo_translado VARCHAR (255),
+    id_usuario INT,
+    id_estado INT,
+    id_bodega_origen INT,
+    id_bodega_destino INT,
+    FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado),
+    FOREIGN KEY (id_bodega_origen) REFERENCES tbl_bodega(id_bodega),
+    FOREIGN KEY (id_bodega_destino) REFERENCES tbl_bodega(id_bodega)
+);
+
 
 CREATE TABLE tbl_modulo (
     id_modulo INT PRIMARY KEY,
@@ -407,3 +423,5 @@ CREATE TABLE tbl_usuario_permiso_modulo (
     FOREIGN KEY (id_modulo) REFERENCES tbl_modulo(id_modulo),
     PRIMARY KEY (id_usuario, id_permiso, id_modulo)
 );
+
+
