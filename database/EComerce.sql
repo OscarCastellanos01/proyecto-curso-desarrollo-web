@@ -385,10 +385,11 @@ CREATE TABLE tbl_bodega_producto (
     FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto)
 );
 
+--Se relaciona con tbl_bodega
 CREATE TABLE tbl_translado (
     id_translado INT PRIMARY KEY,
     fecha_translado DATE,
-    descripccion_traslado VARCHAR,
+    descripcion_traslado VARCHAR,
     motivo_translado VARCHAR (255),
     id_usuario INT,
     id_estado INT,
@@ -400,6 +401,15 @@ CREATE TABLE tbl_translado (
     FOREIGN KEY (id_bodega_destino) REFERENCES tbl_bodega(id_bodega)
 );
 
+--Se relaciona con tbl_translado, y tbl_producto
+CREATE TABLE tbl_detalle_translado (
+    id_detalle_translado INT PRIMARY KEY,   
+    cantidad_transladada INT,
+    id_translado INT,
+    id_producto INT,
+    FOREIGN KEY (id_translado) REFERENCES tbl_translado(id_translado),
+    FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto),
+);
 
 CREATE TABLE tbl_modulo (
     id_modulo INT PRIMARY KEY,
