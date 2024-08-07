@@ -388,6 +388,7 @@ CREATE TABLE tbl_bodega_producto (
 CREATE TABLE tbl_translado (
     id_translado INT PRIMARY KEY,
     fecha_translado DATE,
+    descripccion_traslado VARCHAR,
     motivo_translado VARCHAR (255),
     id_usuario INT,
     id_estado INT,
