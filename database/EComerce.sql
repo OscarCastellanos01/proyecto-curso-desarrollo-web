@@ -180,6 +180,22 @@ CREATE TABLE tbl_persona (
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
 
+--Se relaciona con las tablas "tbl_venta_detalle and tlb_compra_detalle"
+CREATE TABLE tbl_lote (
+    id_lote INT PRIMARY KEY,
+    numero_lote VARCHAR (255),
+    id_producto INT,
+    fecha_produccion DATE, --Es la fecha de creacion del lote
+    fecha_vencimiento DATE,
+    cantidad_incial INT,
+    cantidad_disponible INT,
+    id_bodega INT,
+    id_estado INT,
+    FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto),
+    FOREIGN KEY (id_bodega) REFERENCES tbl_bodega(id_bodega),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
 CREATE TABLE tbl_tipo_venta (
     id_tipoVenta INT PRIMARY KEY,
     nombre_tipoVenta VARCHAR(255)
@@ -207,11 +223,13 @@ CREATE TABLE tbl_venta_detalle (
     id_venta_detalle INT PRIMARY KEY,
     id_venta INT,
     id_producto INT,
+    id_lote INT,
     cantidad_venta_detalle INT,
     descuento_venta_detalle DECIMAL(10, 2),
     subtotal_venta_detalle DECIMAL(10, 2),
     FOREIGN KEY (id_venta) REFERENCES tbl_venta(id_venta),
-    FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto)
+    FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto),
+    FOREIGN KEY (id_lote) REFERENCES tbl_lote(id_lote)
 );
 
 CREATE TABLE tbl_tipo_compra (
@@ -240,11 +258,13 @@ CREATE TABLE tbl_compra (
 CREATE TABLE tbl_compra_detalle (
     id_compra_detalle INT PRIMARY KEY,
     id_compra INT,
+    id_lote INT,
     nombre_producto_dcompra VARCHAR(255),
     cantidad_producto_dcompra INT,
     precio_unitario_producto_dcompra DECIMAL(10, 2),
     subtotal_dcompra DECIMAL(10, 2),
-    FOREIGN KEY (id_compra) REFERENCES tbl_compra(id_compra)
+    FOREIGN KEY (id_compra) REFERENCES tbl_compra(id_compra),
+    FOREIGN KEY (id_lote) REFERENCES tbl_lote(id_lote)
 );
 
 CREATE TABLE tbl_cuenta_x_cobrar (
