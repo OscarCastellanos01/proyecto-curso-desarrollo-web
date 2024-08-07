@@ -96,6 +96,15 @@ CREATE TABLE tbl_categoria (
     id_estado INT,
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
+CREATE TABLE tbl_subcategoria (
+    id_subcategoria INT PRIMARY KEY,
+    nombre_subcategoria VARCHAR(255),
+    id_categoria INT,
+    id_estado INT,
+    FOREIGN KEY (id_categoria) REFERENCES tbl_categoria(id_categoria),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
 
 CREATE TABLE tbl_producto (
     id_producto INT PRIMARY KEY,
@@ -104,13 +113,13 @@ CREATE TABLE tbl_producto (
     nombre_producto VARCHAR(255),
     descripcion_producto VARCHAR(255),
     id_marca INT,
-    id_categoria INT,
+    id_subcategoria INT,
     vencimiento_producto DATE,
     precio_compra_producto DECIMAL(10, 2),
     precio_venta_producto DECIMAL(10, 2),
     id_estado INT,
     FOREIGN KEY (id_marca) REFERENCES tbl_marca(id_marca),
-    FOREIGN KEY (id_categoria) REFERENCES tbl_categoria(id_categoria),
+    FOREIGN KEY (id_subcategoria) REFERENCES tbl_subcategoria(id_subcategoria),
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
 
