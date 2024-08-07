@@ -385,6 +385,25 @@ CREATE TABLE tbl_bodega_producto (
     FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto)
 );
 
+-- Tabla lista de precios
+CREATE TABLE tbl_lista_precio (
+    id_lista_precio INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_lista_precio VARCHAR(50) NOT NULL,
+    descripcion_lista_precio VARCHAR(100) NULL,
+    id_sucursal INT,
+    FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal)
+);
+
+-- Tabla lista de precios de los productos
+CREATE TABLE tbl_lista_precio_producto (
+    id_lista_precio_producto INT PRIMARY KEY AUTO_INCREMENT,
+    id_lista_precio INT,
+    id_producto INT,
+    precio_producto DECIMAL(10,2);
+    FOREIGN KEY (id_lista_precio) REFERENCES tbl_lista_precio(id_lista_precio),
+    FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto)
+);
+
 --Se relaciona con tbl_bodega
 CREATE TABLE tbl_translado (
     id_translado INT PRIMARY KEY,
