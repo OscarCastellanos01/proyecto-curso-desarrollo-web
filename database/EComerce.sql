@@ -454,4 +454,12 @@ CREATE TABLE tbl_usuario_permiso_modulo (
     PRIMARY KEY (id_usuario, id_permiso, id_modulo)
 );
 
+CREATE TABLE tbl_unidad_medida (
+    id_unidad_medida INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_unidad_medida VARCHAR(4),
+    nombre_unidad_medida VARCHAR(15),
+    id_estado INT,
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
 
