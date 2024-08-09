@@ -554,3 +554,48 @@ CREATE TABLE tbl_historial_empleado (
     FOREIGN KEY (id_sucursal_nueva) REFERENCES tbl_sucursal(id_sucursal)
 );
 
+CREATE TABLE tbl_turnos_trabajo (
+    id_turno INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_turno VARCHAR(255),
+    hora_inicio TIME,
+    hora_fin TIME,
+    descripcion TEXT,
+    id_estado INT,
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
+CREATE TABLE tbl_empleado_turno (
+    id_empleado INT,
+    id_turno INT,
+    fecha_inicio DATE,
+    fecha_fin DATE NULL,
+    PRIMARY KEY (id_empleado, id_turno, fecha_inicio),
+    FOREIGN KEY (id_empleado) REFERENCES tbl_empleado(id_empleado),
+    FOREIGN KEY (id_turno) REFERENCES tbl_turnos_trabajo(id_turno)
+);
+
+CREATE TABLE tbl_asistencia (
+    id_asistencia INT PRIMARY KEY AUTO_INCREMENT,
+    id_empleado INT,
+    fecha DATE,
+    hora_entrada TIME,
+    hora_salida TIME,
+    estado_asistencia VARCHAR(50), -- Ejemplo: "Presente", "Tarde", "Ausente", etc.
+    comentarios TEXT,
+    id_estado INT, -- Estado de la asistencia (por ejemplo, si está pendiente de aprobación o revisión)
+    FOREIGN KEY (id_empleado) REFERENCES tbl_empleado(id_empleado),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
+CREATE TABLE tbl_excepciones_asistencia (
+    id_excepcion INT PRIMARY KEY AUTO_INCREMENT,
+    id_empleado INT,
+    fecha DATE,
+    tipo_excepcion VARCHAR(255), -- Ejemplo: "Cambio de turno", "Permiso especial", etc.
+    descripcion TEXT,
+    aprobado_por INT, -- Usuario o supervisor que aprobó la excepción
+    id_estado INT,
+    FOREIGN KEY (id_empleado) REFERENCES tbl_empleado(id_empleado),
+    FOREIGN KEY (aprobado_por) REFERENCES tbl_usuario(id_usuario),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
