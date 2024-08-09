@@ -504,4 +504,13 @@ CREATE TABLE tbl_unidad_medida (
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
 
-
+CREATE TABLE tbl_auditoria (
+    id_auditoria INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT,
+    tabla_afectada VARCHAR(255),
+    accion_realizada VARCHAR(255),
+    fecha_accion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    datos_previos TEXT,
+    datos_nuevos TEXT,
+    FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario)
+);
