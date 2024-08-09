@@ -418,8 +418,8 @@ CREATE TABLE tbl_traslado (
 
 --Se relaciona con tbl_traslado, y tbl_producto
 CREATE TABLE tbl_detalle_traslado (
-    id_detalle_traslado INT PRIMARY KEY AUTO_INCREMENT,  
-    id_traslado INT, 
+    id_detalle_traslado INT PRIMARY KEY AUTO_INCREMENT,
+    id_traslado INT,
     id_producto INT,
     cantidad_trasladar INT,
     id_bodega_origen INT,
@@ -462,4 +462,47 @@ CREATE TABLE tbl_unidad_medida (
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
 
+CREATE TABLE tbl_empresa (
+    id_empresa INT PRIMARY KEY,
+    nombre_empresa VARCHAR(255) NOT NULL,
+    NIT_empresa INT NOT NULL,
+    direccion_empresa VARCHAR(255),
+    telefono_empresa VARCHAR(255),
+    email_empresa VARCHAR(255),
+    id_pais INT,
+    id_departamento INT,
+    id_municipio INT,
+    id_estado INT,
+    FOREIGN KEY (id_pais) REFERENCES tbl_pais(id_pais),
+    FOREIGN KEY (id_departamento) REFERENCES tbl_departamento(id_departamento),
+    FOREIGN KEY (id_municipio) REFERENCES tbl_municipio(id_municipio),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
+ALTER TABLE tbl_sucursal ADD id_empresa INT;
+ALTER TABLE tbl_sucursal ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_usuario ADD id_empresa INT;
+ALTER TABLE tbl_usuario ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_producto ADD id_empresa INT;
+ALTER TABLE tbl_producto ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_compra ADD id_empresa INT;
+ALTER TABLE tbl_compra ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_venta ADD id_empresa INT;
+ALTER TABLE tbl_venta ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_bodega ADD id_empresa INT;
+ALTER TABLE tbl_bodega ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_caja ADD id_empresa INT;
+ALTER TABLE tbl_caja ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_traslado ADD id_empresa INT;
+ALTER TABLE tbl_traslado ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
+
+ALTER TABLE tbl_lista_precio ADD id_empresa INT;
+ALTER TABLE tbl_lista_precio ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
 
