@@ -599,3 +599,47 @@ CREATE TABLE tbl_excepciones_asistencia (
     FOREIGN KEY (aprobado_por) REFERENCES tbl_usuario(id_usuario),
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
+
+
+CREATE TABLE tbl_gastos (
+    id_gasto INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion_gasto VARCHAR(255),
+    monto_gasto DECIMAL(10, 2),
+    fecha_gasto DATE,
+    id_caja INT, -- Relacionado con la caja desde donde se realizó el gasto
+    id_usuario INT, -- Relacionado con el usuario que registró el gasto
+    id_sucursal INT, -- Relacionado con la sucursal donde se realizó el gasto
+    id_empresa INT, -- Relacionado con la empresa
+    id_estado INT, -- Estado del gasto (aprobado, pendiente, rechazado)
+    FOREIGN KEY (id_caja) REFERENCES tbl_caja(id_caja),
+    FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
+    FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal),
+    FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
+CREATE TABLE tbl_liquidaciones (
+    id_liquidacion INT PRIMARY KEY AUTO_INCREMENT,
+    fecha_liquidacion DATE,
+    total_gastos DECIMAL(10, 2), -- Suma de todos los gastos
+    monto_liquidado DECIMAL(10, 2), -- Monto total liquidado
+    id_caja INT, -- Relacionado con la caja liquidada
+    id_usuario INT, -- Usuario que realizó la liquidación
+    id_sucursal INT, -- Relacionado con la sucursal
+    id_empresa INT, -- Relacionado con la empresa
+    id_estado INT, -- Estado de la liquidación
+    FOREIGN KEY (id_caja) REFERENCES tbl_caja(id_caja),
+    FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
+    FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal),
+    FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
+CREATE TABLE tbl_detalle_liquidacion (
+    id_detalle_liquidacion INT PRIMARY KEY AUTO_INCREMENT,
+    id_liquidacion INT, -- Relacionado con la liquidación a la que pertenece este detalle
+    id_gasto INT, -- Relacionado con el gasto que se está liquidando
+    monto_gasto DECIMAL(10, 2), -- El monto del gasto, para referencia
+    FOREIGN KEY (id_liquidacion) REFERENCES tbl_liquidaciones(id_liquidacion),
+    FOREIGN KEY (id_gasto) REFERENCES tbl_gastos(id_gasto)
+);
