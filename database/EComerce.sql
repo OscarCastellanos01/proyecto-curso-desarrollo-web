@@ -410,10 +410,14 @@ CREATE TABLE tbl_traslado (
     fecha_traslado DATE,
     descripcion_traslado VARCHAR (255),
     documento_traslado VARCHAR (255),
+    id_bodega_origen INT,
+    id_bodega_destino INT,
     id_usuario INT,
     id_estado INT,
     FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
-    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado),
+    FOREIGN KEY (id_bodega_origen) REFERENCES tbl_bodega(id_bodega),
+    FOREIGN KEY (id_bodega_destino) REFERENCES tbl_bodega(id_bodega)
 );
 
 --Se relaciona con tbl_traslado, y tbl_producto
@@ -422,12 +426,8 @@ CREATE TABLE tbl_detalle_traslado (
     id_traslado INT,
     id_producto INT,
     cantidad_trasladar INT,
-    id_bodega_origen INT,
-    id_bodega_destino INT,
     FOREIGN KEY (id_traslado) REFERENCES tbl_traslado(id_traslado),
     FOREIGN KEY (id_producto) REFERENCES tbl_producto(id_producto),
-    FOREIGN KEY (id_bodega_origen) REFERENCES tbl_bodega(id_bodega),
-    FOREIGN KEY (id_bodega_destino) REFERENCES tbl_bodega(id_bodega)
 );
 
 CREATE TABLE tbl_modulo (
@@ -478,6 +478,7 @@ CREATE TABLE tbl_empresa (
     FOREIGN KEY (id_municipio) REFERENCES tbl_municipio(id_municipio),
     FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
 );
+--Empresa relaciones
 
 ALTER TABLE tbl_sucursal ADD id_empresa INT;
 ALTER TABLE tbl_sucursal ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
@@ -506,3 +507,25 @@ ALTER TABLE tbl_traslado ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_
 ALTER TABLE tbl_lista_precio ADD id_empresa INT;
 ALTER TABLE tbl_lista_precio ADD FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa);
 
+--Sucursal relaciones
+
+ALTER TABLE tbl_usuario ADD id_sucursal INT;
+ALTER TABLE tbl_usuario ADD FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal);
+
+ALTER TABLE tbl_venta ADD id_sucursal INT;
+ALTER TABLE tbl_venta ADD FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal);
+
+ALTER TABLE tbl_compra ADD id_sucursal INT;
+ALTER TABLE tbl_compra ADD FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal);
+
+ALTER TABLE tbl_producto ADD id_sucursal INT;
+ALTER TABLE tbl_producto ADD FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal);
+
+ALTER TABLE tbl_lote ADD id_sucursal INT;
+ALTER TABLE tbl_lote ADD FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal);
+
+ALTER TABLE tbl_cuenta_x_cobrar ADD id_sucursal INT;
+ALTER TABLE tbl_cuenta_x_cobrar ADD FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal);
+
+ALTER TABLE tbl_cuenta_x_pagar ADD id_sucursal INT;
+ALTER TABLE tbl_cuenta_x_pagar ADD FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal);
