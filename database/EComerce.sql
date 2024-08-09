@@ -514,3 +514,43 @@ CREATE TABLE tbl_auditoria (
     datos_nuevos TEXT,
     FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario)
 );
+
+
+CREATE TABLE tbl_empleado (
+    id_empleado INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT, -- Relacionado con el usuario en el sistema, si aplica
+    id_empresa INT, -- Relacionado con la empresa
+    id_sucursal INT, -- Relacionado con la sucursal donde trabaja
+    id_rol INT, -- Relacionado con el rol del empleado
+    nombre_empleado VARCHAR(255),
+    apellido_empleado VARCHAR(255),
+    fecha_nacimiento DATE,
+    fecha_contratacion DATE,
+    salario DECIMAL(10, 2),
+    puesto VARCHAR(255),
+    direccion_empleado VARCHAR(255),
+    telefono_empleado VARCHAR(255),
+    email_empleado VARCHAR(255),
+    id_estado INT, -- Estado del empleado (activo, inactivo, etc.)
+    FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
+    FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa),
+    FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal),
+    FOREIGN KEY (id_rol) REFERENCES tbl_rol(id_rol),
+    FOREIGN KEY (id_estado) REFERENCES tbl_estado(id_estado)
+);
+
+CREATE TABLE tbl_historial_empleado (
+    id_historial INT PRIMARY KEY AUTO_INCREMENT,
+    id_empleado INT,
+    id_rol_anterior INT,
+    id_rol_nuevo INT,
+    fecha_cambio DATE,
+    id_sucursal_anterior INT,
+    id_sucursal_nueva INT,
+    FOREIGN KEY (id_empleado) REFERENCES tbl_empleado(id_empleado),
+    FOREIGN KEY (id_rol_anterior) REFERENCES tbl_rol(id_rol),
+    FOREIGN KEY (id_rol_nuevo) REFERENCES tbl_rol(id_rol),
+    FOREIGN KEY (id_sucursal_anterior) REFERENCES tbl_sucursal(id_sucursal),
+    FOREIGN KEY (id_sucursal_nueva) REFERENCES tbl_sucursal(id_sucursal)
+);
+
