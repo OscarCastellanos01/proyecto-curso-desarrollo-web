@@ -149,6 +149,22 @@ CREATE TABLE tbl_producto (
     FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal)
 );
 
+CREATE TABLE tbl_conversion_producto (
+    id_conversion INT PRIMARY KEY AUTO_INCREMENT,
+    id_producto_original INT,
+    cantidad_original DECIMAL(10, 2),
+    unidad_original VARCHAR(50),
+    id_producto_convertido INT,
+    cantidad_convertida DECIMAL(10, 2),
+    unidad_convertida VARCHAR(50),
+    id_empresa INT,
+    id_sucursal INT,
+    FOREIGN KEY (id_producto_original) REFERENCES tbl_producto(id_producto),
+    FOREIGN KEY (id_producto_convertido) REFERENCES tbl_producto(id_producto),
+    FOREIGN KEY (id_empresa) REFERENCES tbl_empresa(id_empresa),
+    FOREIGN KEY (id_sucursal) REFERENCES tbl_sucursal(id_sucursal)
+);
+
 CREATE TABLE tbl_producto_imagen (
     id_producto INT,
     url_imagen VARCHAR(255),
